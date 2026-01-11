@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const { errorHandler } = require('./middleware/errorHandler');
 const requestLogger = require('./middleware/requestLogger');
+const authRoutes = require('./routes/authRoutes');
+
 
 // Create Express application
 const app = express();
@@ -13,6 +15,8 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
 // Custom middleware
 app.use(requestLogger); // Log all requests
+app.use('/api/v1/auth', authRoutes);
+
 
 // Health check endpoint
 app.get('/health', (req, res) => {
