@@ -3,7 +3,7 @@ const cors = require('cors');
 const { errorHandler } = require('./middleware/errorHandler');
 const requestLogger = require('./middleware/requestLogger');
 const authRoutes = require('./routes/authRoutes');
-
+const taskRoutes = require('./routes/taskRoutes');
 
 // Create Express application
 const app = express();
@@ -49,5 +49,7 @@ app.use((req, res) => {
 
 // Global error handler (must be last)
 app.use(errorHandler);
+
+app.use('/api/v1/tasks', taskRoutes);
 
 module.exports = app;
