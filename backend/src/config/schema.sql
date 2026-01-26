@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS tasks (
   priority VARCHAR(20) DEFAULT 'medium' CHECK (priority IN ('low', 'medium', 'high', 'urgent')),
   due_date TIMESTAMP,
   completed_at TIMESTAMP,
+  reminder_sent BOOLEAN DEFAULT false,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

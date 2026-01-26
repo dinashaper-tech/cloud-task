@@ -3,6 +3,8 @@ const User = require('../../entities/User');
 const { hashPassword } = require('../../utils/password');
 const { generateToken } = require('../../utils/jwt');
 const { AppError } = require('../../middleware/errorHandler');
+const { sendEmail, emailTemplates } = require('../../utils/email');
+
 
 // Register a new user
 async function registerUser({ email, password, firstName, lastName }) {
@@ -34,6 +36,18 @@ async function registerUser({ email, password, firstName, lastName }) {
     firstName,
     lastName,
   });
+
+  try {
+    const emailContent = emailTemplates.welcome(user.firstName);
+    await sendEmail({
+      to: user.email,
+      subject: emailContent.subject,
+      html: emailContent.html
+    });
+  } catch (error) {
+    console.error('Failed to send welcome email:', error);
+    // Don't fail registration if email fails
+  }
 
   // Generate authentication token
   const token = generateToken(user.id);

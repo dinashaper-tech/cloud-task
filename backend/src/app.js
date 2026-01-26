@@ -4,6 +4,7 @@ const { errorHandler } = require('./middleware/errorHandler');
 const requestLogger = require('./middleware/requestLogger');
 const authRoutes = require('./routes/authRoutes');
 const taskRoutes = require('./routes/taskRoutes');
+const attachmentRoutes = require('./routes/attachmentRoutes');
 
 // Create Express application
 const app = express();
@@ -51,5 +52,6 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 app.use('/api/v1/tasks', taskRoutes);
+app.use('/api/v1/attachments', attachmentRoutes);
 
 module.exports = app;
